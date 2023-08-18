@@ -2,7 +2,7 @@ package com.amigoscode.customer;
 
 import java.util.List;
 
-public record CustomerDTO (
+public record CustomerDTO(
         Integer id,
         String name,
         String email,
@@ -11,6 +11,6 @@ public record CustomerDTO (
         List<String> roles,
         String username,
         String profileImageId
-){
+) {
 
 }
