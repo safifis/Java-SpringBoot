@@ -17,6 +17,10 @@ import java.util.Objects;
                 @UniqueConstraint(
                         name = "customer_email_unique",
                         columnNames = "email"
+                ),
+                @UniqueConstraint(
+                        name = "profile_image_id_unique",
+                        columnNames = "profileImageId"
                 )
         }
 )
@@ -57,6 +61,11 @@ public class Customer implements UserDetails {
     )
     private String password;
 
+    @Column(
+            unique = true
+    )
+    private String profileImageId;
+
     public Customer() {
     }
 
@@ -72,6 +81,17 @@ public class Customer implements UserDetails {
         this.password = password;
         this.age = age;
         this.gender = gender;
+    }
+
+    public Customer(Integer id,
+                    String name,
+                    String email,
+                    String password,
+                    Integer age,
+                    Gender gender,
+                    String profileImageId) {
+        this(id, name, email, password, age, gender);
+        this.profileImageId = profileImageId;
     }
 
     public Customer(String name,
