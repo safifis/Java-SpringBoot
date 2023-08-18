@@ -30,34 +30,44 @@ public class Main {
             S3Service s3Service,
             S3Buckets s3Buckets) {
         return args -> {
-//            var faker = new Faker();
-//            Random random = new Random();
-//            Name name = faker.name();
-//            String firstName = name.firstName();
-//            String lastName = name.lastName();
-//            int age = random.nextInt(16, 99);
-//            Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
-//            String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@amigoscode.com";
-//            Customer customer = new Customer(
-//                    firstName +  " " + lastName,
-//                    email,
-//                    passwordEncoder.encode("password"),
-//                    age,
-//                    gender);
-//            customerRepository.save(customer);
-//            System.out.println(email);
-            s3Service.putObject(
-                    s3Buckets.getCustomer(),
-                    "foo",
-                    "Hello World".getBytes()
-                    );
-            byte[] obj = s3Service.getObject(
-                    "fs-java-customer-test",
-                    "foo"
-            );
-
-            System.out.println("Hooray: " + new String(obj));
+            createRandomCustomer(customerRepository, passwordEncoder);
+            // testBucketUploadAndDownload(s3Service, s3Buckets);
         };
+    }
+
+    private static void testBucketUploadAndDownload(S3Service s3Service,
+                                                    S3Buckets s3Buckets) {
+        s3Service.putObject(
+                s3Buckets.getCustomer(),
+                "foo/bar/jamila",
+                "Hello World".getBytes()
+        );
+
+        byte[] obj = s3Service.getObject(
+                s3Buckets.getCustomer(),
+                "foo/bar/jamila"
+        );
+
+        System.out.println("Hooray: " + new String(obj));
+    }
+
+    private static void createRandomCustomer(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+        var faker = new Faker();
+        Random random = new Random();
+        Name name = faker.name();
+        String firstName = name.firstName();
+        String lastName = name.lastName();
+        int age = random.nextInt(16, 99);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
+        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@amigoscode.com";
+        Customer customer = new Customer(
+                firstName +  " " + lastName,
+                email,
+                passwordEncoder.encode("password"),
+                age,
+                gender);
+        customerRepository.save(customer);
+        System.out.println(email);
     }
 
 }
