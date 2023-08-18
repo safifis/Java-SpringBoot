@@ -12,9 +12,9 @@ cors:
 aws:
   region: us-east-2
   s3:
+    mock: true
     buckets:
       customer: fs-java-customer-test
-
 management:
   endpoints:
     web:

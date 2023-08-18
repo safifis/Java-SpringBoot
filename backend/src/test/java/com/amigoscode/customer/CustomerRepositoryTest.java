@@ -53,7 +53,7 @@ class CustomerRepositoryTest extends AbstractTestcontainers {
     }
 
     @Test
-     void existsCustomerByEmailFailsWhenEmailNotPresent() {
+    void existsCustomerByEmailFailsWhenEmailNotPresent() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
 
